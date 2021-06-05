@@ -1,0 +1,77 @@
+#registerForm {
+    font-family: Lato;
+    width: 100vw;
+    margin: auto;
+    margin-top: 2rem;
+    padding: 1em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.fa-unlock-alt {
+    color: #f49f0aff;
+    margin: 1rem 0 0.5rem 0;
+}
+
+#registerForm h1 {
+    font-family: Lato;
+    font-size: 2rem;
+    color: #993166;
+    text-align: center;
+}
+
+#registerForm input {
+    display: block;
+    width: 100%;
+    padding: 0.75rem;
+    margin-top: 0.25rem;
+    border: 1px solid #ddd;
+    border-radius: 0.25rem;
+    background-color: rgb(232, 240, 254);
+}
+
+#registerForm input:focus {
+    box-shadow: 0 0 5px #5C9129;
+    border: 1px solid #5C9129;
+    outline-offset: 0px !important;
+    outline: none !important;
+}
+
+#registerForm label {
+    width: 90%;
+    display: block;
+    text-align: left;
+    margin-top: 1rem;
+    color: #993166;
+    font-weight: 700;
+}
+
+#registerForm label:first-of-type {
+    margin-top: 0;
+}
+
+.errorMessage {
+    font-size: 0.75rem;
+    margin: 0.5rem;
+    text-align: center;
+    color: #f08700ff;
+    font-weight: 700;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-around;
+    width:100%;
+}
+
+@media (min-width: 600px) {
+
+    #registerForm {
+        width: 400px;
+        border-radius: 3rem;
+        margin-top: 4rem;
+        box-shadow: 0 0 5px #538723 ;
+        border: 3px solid #5C9129 ;
+    }
+}
