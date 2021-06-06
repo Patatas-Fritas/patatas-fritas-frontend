@@ -15,6 +15,24 @@ function Registration() {
 
     const registerUser = async () => {
         console.log('registration request sent')
+        let registrationObj = {
+            firstName,
+            lastName,
+            username,
+            email,
+            password
+        }
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/register`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(registrationObj)
+        })
+        console.log(response.status)
+        console.log(response.message)
+
+
     };
 
     const onFirstNameChange = (event) => {
@@ -71,7 +89,7 @@ function Registration() {
             return null;
         }
 
-        if (password.length < 6) {
+        if (password.length < 8) {
             setErrorMessage('Password is too short. Minimum 6 characters.');
             return null;
         }
