@@ -4,11 +4,11 @@ import { useSelector, useDispatch } from 'react-redux';
 // import { getUserData } from '../../actions/loginActions';
 import Button from '../Button/Button';
 import amigo from '../../assets/images/amigo.png';
-import './login.css';
+import './Login.css';
 
 function Login() {
     // const history = useHistory();
-    // const loginData = useSelector((state) => state.login);
+    // const loginData = useSelector((state) => state.Login);
     //
     // const dispatch = useDispatch();
 
