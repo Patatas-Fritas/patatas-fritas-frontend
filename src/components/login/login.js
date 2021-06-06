@@ -5,12 +5,13 @@ import { useSelector, useDispatch } from 'react-redux';
 import Button from '../Button/Button';
 import amigo from '../../assets/images/amigo.png';
 import './login.css';
+import {loginAction} from "../../actions/login.action";
 
 function Login() {
     // const history = useHistory();
-    // const loginData = useSelector((state) => state.login);
-    //
-    // const dispatch = useDispatch();
+    const loginState = useSelector((state) => state.login);
+
+    const dispatch = useDispatch();
 
     const [usernameInput, setUsernameInput] = useState({
         userValue: null,
@@ -40,11 +41,11 @@ function Login() {
             && passwordInput.passwordValue
             && !usernameInput.error
             && !passwordInput.error) {
-            const loginObject = {
+            const loginObj = {
                 username: usernameInput.userValue,
                 password: passwordInput.passwordValue,
             };
-            // const loggedIn = await dispatch(getUserData(loginObject));
+            const loggedIn = await dispatch(loginAction.login(loginObj));
             // if (loggedIn === 'success') {
             //     clearState();
             //     history.push('/');
