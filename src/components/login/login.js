@@ -46,6 +46,7 @@ function Login() {
                 password: passwordInput.passwordValue,
             };
             const loggedIn = await dispatch(loginAction.login(loginObj));
+            console.log(loggedIn)
             // if (loggedIn === 'success') {
             //     clearState();
             //     history.push('/');
