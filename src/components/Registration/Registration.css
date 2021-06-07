@@ -1,4 +1,4 @@
-#loginForm {
+#registerForm {
     font-family: Lato;
     width: 100vw;
     margin: auto;
@@ -14,14 +14,14 @@
     margin: 1rem 0 0.5rem 0;
 }
 
-#loginForm h1 {
+#registerForm h1 {
     font-family: Lato;
     font-size: 2rem;
     color: #993166;
     text-align: center;
 }
 
-#loginForm input {
+#registerForm input {
     display: block;
     width: 100%;
     padding: 0.75rem;
@@ -31,14 +31,14 @@
     background-color: rgb(232, 240, 254);
 }
 
-#loginForm input:focus {
+#registerForm input:focus {
     box-shadow: 0 0 5px #5C9129;
     border: 1px solid #5C9129;
     outline-offset: 0px !important;
     outline: none !important;
 }
 
-#loginForm label {
+#registerForm label {
     width: 90%;
     display: block;
     text-align: left;
@@ -47,11 +47,11 @@
     font-weight: 700;
 }
 
-#loginForm label:first-of-type {
+#registerForm label:first-of-type {
     margin-top: 0;
 }
 
-.logError {
+.errorMessage {
     font-size: 0.75rem;
     margin: 0.5rem;
     text-align: center;
@@ -67,11 +67,11 @@
 
 @media (min-width: 600px) {
 
-    #loginForm {
+    #registerForm {
         width: 400px;
         border-radius: 3rem;
         margin-top: 4rem;
         box-shadow: 0 0 5px #538723 ;
-        border: 1px solid #5C9129 ;
+        border: 3px solid #5C9129 ;
     }
 }
