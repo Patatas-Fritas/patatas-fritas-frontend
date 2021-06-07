@@ -6,6 +6,7 @@ import { ChuckNorrisApi } from './pages/ChuckNorrisApi/ChuckNorrisApi.js'
 import Login from './components/Login/Login';
 import Registration from './components/Registration/Registration';
 import HangmanPage from "./pages/Games/HangmanPage/HangmanPage";
+import HotspotPage from "./pages/Games/HotspotPage/HotspotPage";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
             <Route exact path="/login" component={Login} />
             <Route exact path="/register" component={Registration} />
             <Route exact path="/hangman" component={HangmanPage} />
+            <Route exact path="/hotspot" component={HotspotPage} />
           </Switch>
         </Router>
       </div>
