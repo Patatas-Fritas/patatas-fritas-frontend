@@ -1,5 +1,7 @@
 import React, {useEffect, useState, useRef} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import {DropzoneDialogBase} from 'material-ui-dropzone'
+import Button from '@material-ui/core/Button';
 import {hotspotAction} from "../../../actions/hotspot.action";
 
 function HotspotPage() {
@@ -9,34 +11,47 @@ function HotspotPage() {
     let height = useRef(0)
     let drawing = useRef(false)
 
-    let canvas = null;
-    let ctx = null;
-    let img = null;
+    const [imageState, setImageState] = useState(null)
+    const imageStateRef = useRef(imageState)
+
+    const setImage = imgSrc => {
+        imageStateRef.current = imgSrc
+        setImageState(imgSrc)
+    }
+
+    let image = useRef(null)
+    const [open, setOpen] = useState(false)
+    const [fileObjects, setFileObjects] = useState([])
+
+    const canvasRef = React.useRef(null)
+    let ctxRef = useRef(null);
+
+    const [canvasSize, setCanvasSize] = useState({width: 0, height: 0})
 
     const dispatch = useDispatch()
 
     useEffect(() => {
-        canvas = document.getElementById('canvas')
-        ctx = canvas.getContext('2d')
+        ctxRef.current = canvasRef.current.getContext('2d')
 
-        img = document.getElementById("asd");
-        ctx.drawImage(img, 0, 0);
-
-        canvas.addEventListener('mousedown', mouseDown, false)
-        canvas.addEventListener('mouseup', mouseUp, false)
-        canvas.addEventListener('mousemove', mouseMove, false)
-
-        return () => {
-            canvas.removeEventListener('mousedown', () => {})
-            canvas.removeEventListener('mouseup', () => {})
-            canvas.removeEventListener('mousemove', () => {})
+        if(imageStateRef.current){
+            ctxRef.current.drawImage(imageStateRef.current, 0, 0);
         }
 
-    }, []);
+        canvasRef.current.addEventListener('mousedown', mouseDown, false)
+        canvasRef.current.addEventListener('mouseup', mouseUp, false)
+        canvasRef.current.addEventListener('mousemove', mouseMove, false)
+
+        return () => {
+            canvasRef.current.removeEventListener('mousedown', () => {})
+            canvasRef.current.removeEventListener('mouseup', () => {})
+            canvasRef.current.removeEventListener('mousemove', () => {})
+        }
+
+    }, [canvasSize]);
 
     function mouseDown(e) {
-        X = e.pageX - canvas.offsetLeft
-        Y = e.pageY - canvas.offsetTop
+        X = e.pageX - canvasRef.current.offsetLeft
+        Y = e.pageY - canvasRef.current.offsetTop
         drawing = true
     }
 
@@ -45,28 +60,67 @@ function HotspotPage() {
     }
 
     function mouseMove(e) {
-        if(!drawing) return
-        width = (e.pageX - canvas.offsetLeft) - X
-        height = (e.pageY - canvas.offsetTop) - Y
-        ctx.clearRect(0, 0, canvas.width, canvas.height)
+        if(!drawing || !imageStateRef.current) return
+        width = (e.pageX - canvasRef.current.offsetLeft) - X
+        height = (e.pageY - canvasRef.current.offsetTop) - Y
+        ctxRef.current.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height)
 
-        ctx.drawImage(img, 0, 0);
-        ctx.lineWidth = 1.5
-        ctx.strokeStyle = 'rgb(0, 255, 255)'
-        ctx.strokeRect(X, Y, width, height)
+        ctxRef.current.drawImage(imageStateRef.current, 0, 0);
+        ctxRef.current.lineWidth = 1.5
+        ctxRef.current.fillStyle = 'rgba(181, 211, 231, 0.4)'
+        ctxRef.current.fillRect(X, Y, width, height)
+        ctxRef.current.strokeStyle = 'rgb(181, 211, 231)'
+        ctxRef.current.strokeRect(X, Y, width, height)
     }
 
     function saveDrawing() {
-        console.log('save me')
-        dispatch(hotspotAction.saveHotspot(null, {X, Y, width, height}))
+        dispatch(hotspotAction.saveHotspot(imageStateRef.current.src, {X, Y, width, height}))
+    }
+
+    function handleClose() {
+        setOpen(false)
+    }
+
+    function handleSave(files) {
+        setOpen(false)
+        setCanvasSize({width: imageStateRef.current.width, height: imageStateRef.current.height})
+    }
+
+    function handleOpen() {
+        setOpen(true)
     }
 
     return (
         <div>
-            <img id='asd' width='0' height='0' src="https://i.pinimg.com/originals/e0/3d/5b/e03d5b812b2734826f76960eca5b5541.jpg" alt="cutest panda in the world"/>
-            <canvas id="canvas" width="400" height="400"/>
+            <canvas style={{border: '1px solid black'}} id="canvas" width={canvasSize.width} height={canvasSize.height} ref={canvasRef}/>
             <br/>
-            <button onClick={saveDrawing}>Love me Rectangle</button>
+            {/*ToDo a feltoltes gomb disabled amig nincs kep*/}
+            <Button variant="contained" color="primary" onClick={handleOpen}>
+                Kep Feltoltes
+            </Button>
+            <br/>
+            <Button variant='contained' color='secondary' onClick={saveDrawing}>Feladat Mentese</Button>
+            <DropzoneDialogBase
+                open={open}
+                onSave={handleSave}
+                acceptedFiles={['image/jpeg', 'image/png', 'image/bmp']}
+                showPreviews={true}
+                maxFileSize={5000000}
+                filesLimit={1}
+                onClose={handleClose}
+                submitButtonText='Feltoltes'
+                cancelButtonText='Bezaras'
+                previewText='Elonezet'
+                dropzoneText='Huzd ide a kepeket teso'
+                fileObjects={fileObjects}
+                onAdd={newFileObjs => {
+                    console.log('onAdd', newFileObjs);
+                    let img = new Image()
+                    img.src = newFileObjs[0].data
+                    setImage(img)
+                    setFileObjects([].concat(fileObjects, newFileObjs));
+                }}
+            />
         </div>
     );
 }
