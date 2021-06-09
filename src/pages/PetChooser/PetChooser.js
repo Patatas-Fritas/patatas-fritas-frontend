@@ -38,7 +38,7 @@ function PetChooser() {
     const classes = useStyles();
 
     const savePet = async () => {
-        console.log('registration request sent')
+        console.log('petchooser request sent')
         let petObj = {
             petName,
             petId
@@ -46,12 +46,14 @@ function PetChooser() {
         const response = await fetch(`${process.env.REACT_APP_API_URL}/petchooser`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'patatas-fritas-token': 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJMaWxpIiwiZXhwIjoxNjIzMzA4NDI0LCJpYXQiOjE2MjMyNzI0MjR9.SvFx7jeaWEA87bgvKYtGkBZ-G8uq-lZ0bSSQGciZJeo'
             },
             body: JSON.stringify(petObj)
         })
-        console.log(response.status)
-        console.log(response.message)
+        console.log(response.status);
+        console.log(response.message);
+        console.log(response);
 
 
     };
@@ -76,15 +78,19 @@ function PetChooser() {
     const savePetClick = (event) => {
         event.preventDefault();
         if (!petId || !petName) {
-            setErrorMessage('All fields are required.');
+            setErrorMessage('Válassz pajtást és nevezd el!');
             return null;
         }
         console.log(savePet);
         return savePet();
     };
+
+
     return (
         <form id="petChooserForm">
-            <div>HaHóóóóó</div>
+            <h3>Üdvözlünk a Kalandorok között!</h3>
+            <h3>Kérlek válassz egy kis barátot, aki a társad lesz a kalandozásaid során!</h3>
+            <h3>Nincs más dolgod, csak kattints egy képre!</h3>
             <Grid container spacing={3}>
                 <Grid item xs={4}>
                     <Card className={classes.root}>
