@@ -6,6 +6,7 @@ import Login from './components/Login/Login';
 import Registration from './components/Registration/Registration';
 import HangmanPage from "./pages/Games/HangmanPage/HangmanPage";
 import HotspotPage from "./pages/Games/HotspotPage/HotspotPage";
+import PetChooser from './pages/PetChooser/PetChooser';
 
 function App() {
   return (
@@ -15,8 +16,10 @@ function App() {
             <Route exact path="/chuck" component={ChuckNorrisApi} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/register" component={Registration} />
+
             <Route exact path="/hangman" component={HangmanPage} />
             <Route exact path="/hotspot" component={HotspotPage} />
+            <Route exact path="/petchooser" component={PetChooser} />
           </Switch>
         </Router>
       </div>
