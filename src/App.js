@@ -17,7 +17,7 @@ function App() {
             <Route exact path="/login" component={Login} />
             <Route exact path="/register" component={Registration} />
             <Route exact path="/hangman" component={HangmanPage} />
-            <Route exact path="/hotspot" component={HotspotPage} />
+            <Route exact path="/admin/hotspot" component={HotspotPage} />
           </Switch>
         </Router>
       </div>
