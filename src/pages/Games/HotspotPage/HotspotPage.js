@@ -2,6 +2,8 @@ import React, {useEffect, useState, useRef} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {DropzoneDialogBase} from 'material-ui-dropzone'
 import Button from '@material-ui/core/Button';
+import { Alert } from '@material-ui/lab';
+
 import {hotspotAction} from "../../../actions/hotspot.action";
 
 function HotspotPage() {
@@ -13,6 +15,7 @@ function HotspotPage() {
 
     const [imageState, setImageState] = useState(null)
     const imageStateRef = useRef(imageState)
+    const [error, setError] = useState(null)
 
     const setImage = imgSrc => {
         imageStateRef.current = imgSrc
@@ -74,7 +77,12 @@ function HotspotPage() {
     }
 
     function saveDrawing() {
+        // console.log(X.current)
+        // if (X === 0 || Y === 0 || width === 0 || height === 0) {
+        //     return setError('A koordináták kijelölése kötelező!')
+        // }
         dispatch(hotspotAction.saveHotspot(imageStateRef.current.src, {X, Y, width, height}))
+        setError(null)
     }
 
     function handleClose() {
@@ -88,18 +96,22 @@ function HotspotPage() {
 
     function handleOpen() {
         setOpen(true)
+        setError(null)
     }
 
     return (
         <div>
+            {error &&
+            <Alert variant="filled" severity="warning">{error}</Alert>
+            }
             <canvas style={{border: '1px solid black'}} id="canvas" width={canvasSize.width} height={canvasSize.height} ref={canvasRef}/>
             <br/>
             {/*ToDo a feltoltes gomb disabled amig nincs kep*/}
             <Button variant="contained" color="primary" onClick={handleOpen}>
-                Kep Feltoltes
+                Kép Feltöltes
             </Button>
             <br/>
-            <Button variant='contained' color='secondary' onClick={saveDrawing}>Feladat Mentese</Button>
+            <Button variant='contained' color='secondary' disabled={!imageState} onClick={saveDrawing}>Feladat Mentése</Button>
             <DropzoneDialogBase
                 open={open}
                 onSave={handleSave}
@@ -108,10 +120,10 @@ function HotspotPage() {
                 maxFileSize={5000000}
                 filesLimit={1}
                 onClose={handleClose}
-                submitButtonText='Feltoltes'
-                cancelButtonText='Bezaras'
-                previewText='Elonezet'
-                dropzoneText='Huzd ide a kepeket teso'
+                submitButtonText='Feltöltes'
+                cancelButtonText='Mégsem'
+                previewText='Előnézet'
+                dropzoneText='Húzd ide a képet!'
                 fileObjects={fileObjects}
                 onAdd={newFileObjs => {
                     console.log('onAdd', newFileObjs);
