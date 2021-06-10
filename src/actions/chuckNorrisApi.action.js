@@ -12,6 +12,7 @@ function getRandomJoke() {
         try {
             const response = await chuckNorrisApiService.getRandomJoke()
             dispatch(success({joke : {text: response.value, img: response.icon_url}}))
+
         } catch(error) {
             dispatch(failure({error: error.toString()}))
         }
