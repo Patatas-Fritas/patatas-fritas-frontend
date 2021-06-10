@@ -40,22 +40,19 @@ function PetChooser() {
     const savePet = async () => {
         console.log('petchooser request sent')
         let petObj = {
-            petName,
-            petId
+            petId,
+            petName
         }
         const response = await fetch(`${process.env.REACT_APP_API_URL}/petchooser`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
-                'patatas-fritas-token': 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJMaWxpIiwiZXhwIjoxNjIzMzA4NDI0LCJpYXQiOjE2MjMyNzI0MjR9.SvFx7jeaWEA87bgvKYtGkBZ-G8uq-lZ0bSSQGciZJeo'
+                'Content-Type': 'application/json'
+//                'patatas-fritas-token': 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJMaWxpIiwiZXhwIjoxNjIzMzgxMjUzLCJpYXQiOjE2MjMzNDUyNTN9.IUfLSYdwkMfmBqL9jMufJ39C5IDwwIEp3Cmgzj2ZEBA'
             },
             body: JSON.stringify(petObj)
         })
-        console.log(response.status);
-        console.log(response.message);
-        console.log(response);
-
-
+        console.log(response.status)
+        console.log(response.message)
     };
 
     const onPetNameChange = (event) => {
@@ -71,7 +68,8 @@ function PetChooser() {
         if (errorMessage) {
             setErrorMessage('');
         }
-        setPetId(event.target.value);
+        setPetId(event.target.id);
+        console.log(petId);
         console.log("ez a petid");
     };
 
