@@ -6,6 +6,15 @@ import Login from './components/Login/Login';
 import Registration from './components/Registration/Registration';
 import HangmanPage from "./pages/Games/HangmanPage/HangmanPage";
 import HotspotPage from "./pages/Games/HotspotPage/HotspotPage";
+import { createMuiTheme, ThemeProvider } from "@material-ui/core";
+
+const theme = createMuiTheme({
+    palette: {
+        primary: {
+            main: '#5C9129'
+        }
+    }
+})
 
 function App() {
   return (
