@@ -6,6 +6,7 @@ import Login from './components/Login/Login';
 import Registration from './components/Registration/Registration';
 import HangmanPage from "./pages/Games/HangmanPage/HangmanPage";
 import HotspotPage from "./pages/Games/HotspotPage/HotspotPage";
+import Header from "./components/Header/Header";
 import {createMuiTheme, ThemeProvider} from "@material-ui/core";
 
 const theme = createMuiTheme({
@@ -32,6 +33,7 @@ function App() {
         <div className="App">
             <ThemeProvider theme={theme}>
                 <Router>
+                    <Header/>
                     <Switch>
                         <Route exact path="/chuck" component={ChuckNorrisApi}/>
                         <Route exact path="/login" component={Login}/>
