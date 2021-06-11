@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {hangmanAction} from "../../../actions/hangman.action";
+import Button from '@material-ui/core/Button';
 
 function HangmanPage() {
     const { wrongGuessCounter, progress, gameState } = useSelector((state) => state.hangman);
@@ -35,7 +36,7 @@ function HangmanPage() {
             {gameState === 'win' && (
                 <div>
                     <p>Nyertel</p>
-                    <button onClick={nextClick}>Kovetkezo</button>
+                    <Button variant='contained' color='secondary' onClick={nextClick}>Következő</Button>
                 </div>
             )}
             {gameState === 'lose' && (
