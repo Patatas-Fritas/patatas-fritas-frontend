@@ -12,7 +12,8 @@ function HangmanPage() {
     }
 
     useEffect(() => {
-        dispatch(hangmanAction.initializeWordToGuess())
+        const gameId = '3'
+        dispatch(hangmanAction.initializeWordToGuess(gameId))
         document.addEventListener("keydown", handleKeyDown, false)
 
         return () => {
