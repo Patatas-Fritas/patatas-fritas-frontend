@@ -11,7 +11,9 @@ function login(loginObj) {
 
         try {
             const response = await loginService.login(loginObj)
-            dispatch(success({user: response}))
+            console.log(response)
+            localStorage.setItem("token", response.token)
+            dispatch(success({user: response.user}))
         } catch(error) {
             dispatch(failure({error: error.toString()}))
         }

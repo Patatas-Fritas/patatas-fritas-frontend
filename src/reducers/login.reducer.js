@@ -4,10 +4,10 @@ const initialState = {
     loading: false,
     user: {
         username: null,
-        userType: null,
+        role: null,
         firstName: null,
         lastName:null,
-        email: null,
+        emailAddress: null,
     },
     error: '',
 };
