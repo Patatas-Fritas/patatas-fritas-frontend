@@ -33,6 +33,7 @@ const useStyles = makeStyles((theme) => ({
 function PetChooser() {
     const [petName, setPetName] = useState('');
     const [petId, setPetId] = useState('');
+    const token = localStorage.getItem('token');
 
     const [errorMessage, setErrorMessage] = useState('');
     const classes = useStyles();
@@ -43,11 +44,12 @@ function PetChooser() {
             petId,
             petName
         }
+        console.log(token);
         const response = await fetch(`${process.env.REACT_APP_API_URL}/petchooser`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
-//                'patatas-fritas-token': 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJMaWxpIiwiZXhwIjoxNjIzMzgxMjUzLCJpYXQiOjE2MjMzNDUyNTN9.IUfLSYdwkMfmBqL9jMufJ39C5IDwwIEp3Cmgzj2ZEBA'
+                'Content-Type': 'application/json',
+                'patatas-fritas-token': token
             },
             body: JSON.stringify(petObj)
         })
