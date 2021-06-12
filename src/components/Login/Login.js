@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import { useHistory, Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 // import { getUserData } from '../../actions/loginActions';
@@ -8,7 +8,7 @@ import './login.css';
 import {loginAction} from "../../actions/login.action";
 
 function Login() {
-    // const history = useHistory();
+    const history = useHistory();
     const loginState = useSelector((state) => state.login);
 
     const dispatch = useDispatch();
@@ -27,6 +27,14 @@ function Login() {
         setUsernameInput('');
         setPasswordInput('');
     }
+
+    useEffect(() => {
+        if (loginState.user.username) {
+            clearState();
+            history.push('/');
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [loginState]);
 
     const [display, setDisplay] = useState({
         color: '#ffffff',
@@ -90,6 +98,8 @@ function Login() {
         }
     }
 
+    console.log(loginState.user)
+
     return (
         <form id="loginForm">
             <img src={amigo} alt="kids"/>
@@ -106,7 +116,7 @@ function Login() {
             </label>
             <p className="logError" style={display}>{passwordInput.error}</p>
             <div className="buttons">
-                <Button variant='contained' color='secondary'  handleClick={loginClick} buttonClass={!usernameInput.userValue || !passwordInput.passwordValue || usernameInput.error || passwordInput.error ? 'disabledButton' : ''}>BELÉPÉS</Button>
+                <Button variant='contained' color='secondary'  onClick={loginClick} buttonClass={!usernameInput.userValue || !passwordInput.passwordValue || usernameInput.error || passwordInput.error ? 'disabledButton' : ''}>BELÉPÉS</Button>
             </div>
         </form>
 

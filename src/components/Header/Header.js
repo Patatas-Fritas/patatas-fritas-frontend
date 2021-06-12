@@ -15,6 +15,7 @@ function Header() {
   const [width, setWidth] = useState(window.innerWidth);
   const [open, setOpen] = useState(false);
   const loginState = useSelector((state) => state.login);
+  const token = localStorage.getItem('token')
 
   const handleResize = () => {
     setWidth([window.innerWidth]);
@@ -33,6 +34,10 @@ function Header() {
     }
   }, [width]);
 
+  const isLoggedIn = () => {
+    return localStorage.getItem('token') != null
+  }
+
   const kidItems = [
     {
       title: 'Tanulás',
@@ -45,10 +50,9 @@ function Header() {
     {
       title: 'Kijelentkezés',
       path: '/',
-      // action: () => {
-      //   dispatch(logOutAction());
-      //   localStorage.removeItem('token');
-      // },
+      action: () => {
+        localStorage.removeItem('token');
+      },
     },
   ];
 
@@ -64,10 +68,9 @@ function Header() {
     {
       title: 'Kijelentkezés',
       path: '/',
-      // action: () => {
-      //   dispatch(logOutAction());
-      //   localStorage.removeItem('token');
-      // },
+      action: () => {
+        localStorage.removeItem('token');
+      },
     },
   ];
 
@@ -96,15 +99,15 @@ function Header() {
         className="nav-links"
         style={{ display: open ? 'flex' : 'none' }}
       >
-        {loginState.username ? (
+        {isLoggedIn() ? (
           <div className="dd-menu">
             <Dropdown
               title={
-              loginState.role === 'ROLE_ADMIN' ? `Hello Admin ${loginState.username}`
-                : `Hello ${loginState.username}`
+              loginState.user.role === 'ROLE_ADMIN' ? `Hello Admin ${loginState.user.username}`
+                : `Hello ${loginState.user.username}`
             }
               items={
-                loginState.userType === 'ROLE_ADMIN' ? adminItems
+                loginState.user.role === 'ROLE_ADMIN' ? adminItems
                 : kidItems
             }
             />
