@@ -45,9 +45,9 @@ function HotspotPage() {
         canvasRef.current.addEventListener('mousemove', mouseMove, false)
 
         return () => {
-            canvasRef.current.removeEventListener('mousedown', () => {})
-            canvasRef.current.removeEventListener('mouseup', () => {})
-            canvasRef.current.removeEventListener('mousemove', () => {})
+            // canvasRef.current.removeEventListener('mousedown', () => {})
+            // canvasRef.current.removeEventListener('mouseup', () => {})
+            // canvasRef.current.removeEventListener('mousemove', () => {})
         }
 
     }, [canvasSize]);

@@ -13,6 +13,8 @@ function Registration() {
     const [password, setPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
 
+    const history = useHistory();
+
     const registerUser = async () => {
         console.log('registration request sent')
         let registrationObj = {
@@ -29,9 +31,7 @@ function Registration() {
             },
             body: JSON.stringify(registrationObj)
         })
-        console.log(response.status)
-        console.log(response.message)
-
+            history.push('/login');
 
     };
 
