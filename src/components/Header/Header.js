@@ -30,8 +30,11 @@ const useStyles = makeStyles({
     maxWidth: '100px',
     minWidth: '100px'
   },
-  grow: {
-    flexGrow: 1,
+  valami: {
+    flex: '0 1 auto',
+  },
+  asd: {
+    flex: '1'
   }
 });
 
@@ -87,7 +90,7 @@ function Header() {
   return (
     <AppBar position="static" className={styles.header}>
       <Toolbar>
-        <Grid container direction="row" alignItems="center" justify="space-between">
+        <Grid container direction="row" alignItems="center" justify="flex-end">
           <Grid item xs={2}>
             <Link component={RouterLink} to="/">
               <img className={styles.image} src={amigosLogo} alt="Amigos logo"/>
@@ -96,14 +99,14 @@ function Header() {
           <Grid item container direction="row" justify="flex-end" alignItems="center" wrap="nowrap" spacing={2} xs={10}>
             {!isLoggedIn() &&
             <>
-              <Grid item>
+              <Grid item className={styles.asd}>
                 <Link component={RouterLink} to="/login">
                   <Typography className={styles.headerFont} variant="h4"
                               color='textSecondary'>Bejelentkezes</Typography>
                 </Link>
               </Grid>
 
-              <Grid item>
+              <Grid item className={styles.asd}>
                 <Link component={RouterLink} to="/register">
                   <Typography className={styles.headerFont} variant="h4" color='textSecondary'>Regisztracio</Typography>
                 </Link>
@@ -112,7 +115,7 @@ function Header() {
             }
             {isLoggedIn() && getToken().role === 'ROLE_ADMIN' &&
             <>
-              <Grid item container direction="row" justify="flex-end" alignItems="center" wrap="nowrap" spacing={3}>
+              <Grid item container direction="row" justify="flex-end" alignItems="center" wrap="nowrap" spacing={3} className={styles.asd}>
                 <Grid item>
                   <Link component={RouterLink} to="/">
                     <Typography className={styles.headerFont} variant="h4" color='textSecondary'>Oktatas</Typography>
@@ -130,7 +133,7 @@ function Header() {
             }
             {isLoggedIn() && getToken().role === 'ROLE_USER' &&
             <>
-              <Grid item container direction="row" justify="flex-end" alignItems="center" wrap="nowrap" spacing={3}>
+              <Grid item container direction="row" justify="flex-end" alignItems="center" wrap="nowrap" spacing={3} className={styles.asd}>
                 <Grid item>
                   <Link component={RouterLink} to="/">
                     <Typography className={styles.headerFont} variant="h4" color='textSecondary'>Tanulas</Typography>
@@ -150,12 +153,11 @@ function Header() {
             }
             {isLoggedIn() &&
             <>
-              <Grid item container direction="row" justify="flex-end" alignItems="center" wrap="nowrap" spacing={2}
-              xs={2}>
-                <Grid item>
+              <Grid item className={styles.valami}>
+
                   <Typography className={styles.headerFont} variant="h5"
                               color='textSecondary'>Szia {getToken().sub}</Typography>
-                </Grid>
+
               </Grid>
               <Grid item>
                 <Tooltip title="Kijelentkezes">
