@@ -135,7 +135,7 @@ function Header() {
             <>
               <Grid item container direction="row" justify="flex-end" alignItems="center" wrap="nowrap" spacing={3} className={styles.asd}>
                 <Grid item>
-                  <Link component={RouterLink} to="/">
+                  <Link component={RouterLink} to="/exercise">
                     <Typography className={styles.headerFont} variant="h4" color='textSecondary'>Tanulas</Typography>
                   </Link>
                 </Grid>
