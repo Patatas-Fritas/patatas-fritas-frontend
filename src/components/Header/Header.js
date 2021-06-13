@@ -1,12 +1,39 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
-import React, { useState, useEffect } from 'react';
-import { Link, useHistory } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-// import { logOutAction } from '../../actions/loginActions';
+import React, {useEffect, useState} from 'react';
+import {Link as RouterLink, useHistory} from 'react-router-dom';
+import {useDispatch, useSelector} from 'react-redux';
+import {makeStyles} from '@material-ui/core/styles';
 import amigosLogo from '../../assets/images/logos/amigos-logo.png'
-import './Header.css';
-import Dropdown from '../Dropdown/Dropdown';
+import jwt_decode from "jwt-decode";
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import Link from '@material-ui/core/Link';
+import Tooltip from '@material-ui/core/Tooltip';
+import IconButton from '@material-ui/core/IconButton';
+import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
+// import './Header.css';
+// import Dropdown from '../Dropdown/Dropdown';
+
+const useStyles = makeStyles({
+  header: {
+    background: 'linear-gradient(0deg, rgba(178,199,163,1.00) 0%, rgba(92,145,41,1.00) 100%);',
+  },
+
+  headerFont: {
+    fontFamily: 'Amatic SC'
+  },
+
+  image: {
+    maxWidth: '100px',
+    minWidth: '100px'
+  },
+  grow: {
+    flexGrow: 1,
+  }
+});
 
 function Header() {
   const history = useHistory();
@@ -14,8 +41,9 @@ function Header() {
 
   const [width, setWidth] = useState(window.innerWidth);
   const [open, setOpen] = useState(false);
+  const [token, setToken] = useState(null);
+  const [isLoggedOut, setIsLoggedOut] = useState(false);
   const loginState = useSelector((state) => state.login);
-  const token = localStorage.getItem('token')
 
   const handleResize = () => {
     setWidth([window.innerWidth]);
@@ -26,6 +54,7 @@ function Header() {
     return () => {
       window.removeEventListener('resize', handleResize);
     };
+
   }, []);
 
   useEffect(() => {
@@ -34,111 +63,116 @@ function Header() {
     }
   }, [width]);
 
+  useEffect(() => {
+    if (isLoggedOut) {
+      history.push('/login')
+    }
+
+  }, [isLoggedOut]);
+
   const isLoggedIn = () => {
     return localStorage.getItem('token') != null
   }
 
-  const kidItems = [
-    {
-      title: 'Tanulás',
-      path: '/',
-    },
-    {
-      title: 'Állatka kuckó',
-      path: '/',
-    },
-    {
-      title: 'Kijelentkezés',
-      path: '/',
-      action: () => {
-        localStorage.removeItem('token');
-      },
-    },
-  ];
+  const getToken = () => {
+    const rawToken = localStorage.getItem('token')
+    return jwt_decode(rawToken)
+  }
 
-  const adminItems = [
-    {
-      title: 'Oktatás',
-      path: '/',
-    },
-    {
-      title: 'Statisztika',
-      path: '/',
-    },
-    {
-      title: 'Kijelentkezés',
-      path: '/',
-      action: () => {
-        localStorage.removeItem('token');
-      },
-    },
-  ];
+  if (isLoggedIn()) {
+    console.log(getToken())
+  }
 
+  const styles = useStyles()
   return (
-    <nav className="navbar">
-      <div
-        className="logo"
-        onClick={() => history.push('/')}
-      >
-        <div className="logo-img-container">
-          <img
-            className="logo-img"
-            src={amigosLogo}
-            alt="FoxTicket logo"
-          />
-        </div>
-        {width <= 600
-        && (
-        <i
-          onClick={() => setOpen(!open)}
-          className="fas fa-bars bars"
-        />
-        ) }
-      </div>
-      <ul
-        className="nav-links"
-        style={{ display: open ? 'flex' : 'none' }}
-      >
-        {isLoggedIn() ? (
-          <div className="dd-menu">
-            <Dropdown
-              title={
-              loginState.user.role === 'ROLE_ADMIN' ? `Hello Admin ${loginState.user.username}`
-                : `Hello ${loginState.user.username}`
-            }
-              items={
-                loginState.user.role === 'ROLE_ADMIN' ? adminItems
-                : kidItems
-            }
-            />
-          </div>
-        ) : (
-          <>
-            <Link
-              to="/login"
-              style={{ textDecoration: 'none' }}
-            >
-              <li
-                className="nav-link"
-                id="login-link"
-              >
-                Bejelentkezés
-              </li>
+    <AppBar position="static" className={styles.header}>
+      <Toolbar>
+        <Grid container direction="row" alignItems="center" justify="space-between">
+          <Grid item xs={2}>
+            <Link component={RouterLink} to="/">
+              <img className={styles.image} src={amigosLogo} alt="Amigos logo"/>
             </Link>
-            <Link
-              to="/register"
-              style={{ textDecoration: 'none' }}
-            >
-              <li
-                className="nav-link"
-              >
-                Regisztrálás
-              </li>
-            </Link>
-          </>
-        )}
-      </ul>
-    </nav>
+          </Grid>
+          <Grid item container direction="row" justify="flex-end" alignItems="center" wrap="nowrap" spacing={2} xs={10}>
+            {!isLoggedIn() &&
+            <>
+              <Grid item>
+                <Link component={RouterLink} to="/login">
+                  <Typography className={styles.headerFont} variant="h4"
+                              color='textSecondary'>Bejelentkezes</Typography>
+                </Link>
+              </Grid>
+
+              <Grid item>
+                <Link component={RouterLink} to="/register">
+                  <Typography className={styles.headerFont} variant="h4" color='textSecondary'>Regisztracio</Typography>
+                </Link>
+              </Grid>
+            </>
+            }
+            {isLoggedIn() && getToken().role === 'ROLE_ADMIN' &&
+            <>
+              <Grid item container direction="row" justify="flex-end" alignItems="center" wrap="nowrap" spacing={3}>
+                <Grid item>
+                  <Link component={RouterLink} to="/">
+                    <Typography className={styles.headerFont} variant="h4" color='textSecondary'>Oktatas</Typography>
+                  </Link>
+                </Grid>
+
+                <Grid item>
+                  <Link component={RouterLink} to="/register">
+                    <Typography className={styles.headerFont} variant="h4"
+                                color='textSecondary'>Statisztika</Typography>
+                  </Link>
+                </Grid>
+              </Grid>
+            </>
+            }
+            {isLoggedIn() && getToken().role === 'ROLE_USER' &&
+            <>
+              <Grid item container direction="row" justify="flex-end" alignItems="center" wrap="nowrap" spacing={3}>
+                <Grid item>
+                  <Link component={RouterLink} to="/">
+                    <Typography className={styles.headerFont} variant="h4" color='textSecondary'>Tanulas</Typography>
+                  </Link>
+                </Grid>
+
+                <Grid item>
+                  <Link component={RouterLink} to="/">
+                    <Typography className={styles.headerFont} variant="h4" color='textSecondary'>Allatka
+                      kucko</Typography>
+                  </Link>
+                </Grid>
+              </Grid>
+
+
+            </>
+            }
+            {isLoggedIn() &&
+            <>
+              <Grid item container direction="row" justify="flex-end" alignItems="center" wrap="nowrap" spacing={2}
+              xs={2}>
+                <Grid item>
+                  <Typography className={styles.headerFont} variant="h5"
+                              color='textSecondary'>Szia {getToken().sub}</Typography>
+                </Grid>
+              </Grid>
+              <Grid item>
+                <Tooltip title="Kijelentkezes">
+                  <IconButton onClick={() => {
+                    localStorage.removeItem('token')
+                    setIsLoggedOut(true)
+                  }}>
+                    < MeetingRoomIcon/>
+                  </IconButton>
+                </Tooltip>
+              </Grid>
+            </>
+            }
+          </Grid>
+        </Grid>
+      </Toolbar>
+    </AppBar>
   );
 }
 

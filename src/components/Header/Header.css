@@ -49,6 +49,7 @@ li {
   font-size: 1.25rem;
   font-family: Montserrat;
   font-weight: 500;
+  flex-direction: row;
 }
 #menu-link {
   background-color: transparent;

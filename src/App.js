@@ -8,6 +8,7 @@ import HangmanPage from "./pages/Games/HangmanPage/HangmanPage";
 import HotspotPage from "./pages/Games/HotspotPage/HotspotPage";
 import Header from "./components/Header/Header";
 import {createMuiTheme, ThemeProvider} from "@material-ui/core";
+import {grey} from "@material-ui/core/colors";
 
 const theme = createMuiTheme({
     palette: {
@@ -19,6 +20,9 @@ const theme = createMuiTheme({
         },
         secondary: {
             main: '#993166'
+        },
+        text: {
+            secondary: grey[50]
         }
     },
     typography: {
