@@ -11,7 +11,7 @@ import Header from "./components/Header/Header";
 import {createMuiTheme, ThemeProvider} from "@material-ui/core";
 import {grey} from "@material-ui/core/colors";
 
-const theme = createMuiTheme({
+export const theme = createMuiTheme({
     palette: {
         primary: {
             dark: '#538723',
