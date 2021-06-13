@@ -3,15 +3,16 @@ import {makeStyles} from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardMedia from '@material-ui/core/CardMedia';
 import Grid from '@material-ui/core/Grid';
-import pet_dinosaur from "../../assets/images/pet_dinosaur.jpg";
-import pet_princess from "../../assets/images/pet_princess.jpg";
-import pet_happy_cat from "../../assets/images/pet_happy_cat.png";
+import pet_dinosaur from "../../assets/images/chooser/1.jpg";
+import pet_cat from "../../assets/images/chooser/2.jpg";
+import pet_dog from "../../assets/images/chooser/3.jpg";
+import pet_fox from "../../assets/images/chooser/4.jpg";
+import pet_mink from "../../assets/images/chooser/5.jpg";
 import Button from "../../components/Button/Button";
 
 
 const useStyles = makeStyles((theme) => ({
     root: {
-//        maxWidth: 345,
         display: 'flex',
         flexWrap: 'wrap',
         '& > *': {
@@ -54,7 +55,7 @@ function PetChooser() {
             body: JSON.stringify(petObj)
         })
         console.log(response.status)
-        console.log(response.message)
+        console.log(response)
     };
 
     const onPetNameChange = (event) => {
@@ -62,8 +63,6 @@ function PetChooser() {
             setErrorMessage('');
         }
         setPetName(event.target.value);
-        console.log(petName);
-        console.log("ez meg itt a petname");
     };
 
     const getPetId = (event) => {
@@ -71,8 +70,6 @@ function PetChooser() {
             setErrorMessage('');
         }
         setPetId(event.target.id);
-        console.log(petId);
-        console.log("ez a petid");
     };
 
     const savePetClick = (event) => {
@@ -81,7 +78,6 @@ function PetChooser() {
             setErrorMessage('Válassz pajtást és nevezd el!');
             return null;
         }
-        console.log(savePet);
         return savePet();
     };
 
@@ -91,14 +87,14 @@ function PetChooser() {
             <h3>Üdvözlünk a Kalandorok között!</h3>
             <h3>Kérlek válassz egy kis barátot, aki a társad lesz a kalandozásaid során!</h3>
             <h3>Nincs más dolgod, csak kattints egy képre!</h3>
-            <Grid container spacing={3}>
+            <Grid container spacing={5}>
                 <Grid item xs={4}>
                     <Card className={classes.root}>
                         <CardMedia
                             component="img"
                             alt="próba"
                             image={pet_dinosaur}
-                            title="Dinó"
+                            title="Dino"
                             id={1}
                             onClick={getPetId}
                         />
@@ -109,8 +105,8 @@ function PetChooser() {
                         <CardMedia
                             component="img"
                             alt="próba"
-                            image={pet_princess}
-                            title="Princess"
+                            image={pet_cat}
+                            title="Cat"
                             id={2}
                             onClick={getPetId}
                         />
@@ -121,9 +117,33 @@ function PetChooser() {
                         <CardMedia
                             component="img"
                             alt="próba"
-                            image={pet_happy_cat}
-                            title="Cat"
+                            image={pet_dog}
+                            title="Dog"
                             id={3}
+                            onClick={getPetId}
+                        />
+                    </Card>
+                </Grid>
+                <Grid item xs={4}>
+                    <Card className={classes.root}>
+                        <CardMedia
+                            component="img"
+                            alt="próba"
+                            image={pet_fox}
+                            title="Fox"
+                            id={4}
+                            onClick={getPetId}
+                        />
+                    </Card>
+                </Grid>
+                <Grid item xs={4}>
+                    <Card className={classes.root}>
+                        <CardMedia
+                            component="img"
+                            alt="próba"
+                            image={pet_mink}
+                            title="Fox"
+                            id={5}
                             onClick={getPetId}
                         />
                     </Card>
