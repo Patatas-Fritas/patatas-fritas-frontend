@@ -52,7 +52,7 @@ export function ExercisePage() {
     //   },
     //   {
     //     id: 3,
-    //     title: 'Meszaros lolo $$',
+    //     title: 'Dinnye ',
     //     details: 'asd asd asd $$$',
     //     category: 'akasztofa'
     //   },
@@ -63,6 +63,7 @@ export function ExercisePage() {
     //     category: 'kepes'
     //   }
     // ]
+    // setExercises(exerciseArray)
 },[])
 
 const styles = useStyles()

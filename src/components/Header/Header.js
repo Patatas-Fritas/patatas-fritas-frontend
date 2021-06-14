@@ -68,10 +68,11 @@ function Header() {
 
   useEffect(() => {
     if (isLoggedOut) {
-      history.push('/login')
+      // history.push('/login')
+      // setIsLoggedOut(false)
     }
 
-  }, [isLoggedOut]);
+  }, [isLoggedOut === true]);
 
   const isLoggedIn = () => {
     return localStorage.getItem('token') != null
@@ -115,7 +116,8 @@ function Header() {
             }
             {isLoggedIn() && getToken().role === 'ROLE_ADMIN' &&
             <>
-              <Grid item container direction="row" justify="flex-end" alignItems="center" wrap="nowrap" spacing={3} className={styles.asd}>
+              <Grid item container direction="row" justify="flex-end" alignItems="center" wrap="nowrap" spacing={3}
+                    className={styles.asd}>
                 <Grid item>
                   <Link component={RouterLink} to="/">
                     <Typography className={styles.headerFont} variant="h4" color='textSecondary'>Oktatas</Typography>
@@ -133,7 +135,8 @@ function Header() {
             }
             {isLoggedIn() && getToken().role === 'ROLE_USER' &&
             <>
-              <Grid item container direction="row" justify="flex-end" alignItems="center" wrap="nowrap" spacing={3} className={styles.asd}>
+              <Grid item container direction="row" justify="flex-end" alignItems="center" wrap="nowrap" spacing={3}
+                    className={styles.asd}>
                 <Grid item>
                   <Link component={RouterLink} to="/exercise">
                     <Typography className={styles.headerFont} variant="h4" color='textSecondary'>Tanulas</Typography>
@@ -155,18 +158,27 @@ function Header() {
             <>
               <Grid item className={styles.valami}>
 
-                  <Typography className={styles.headerFont} variant="h5"
-                              color='textSecondary'>Szia {getToken().sub}</Typography>
+                <Typography className={styles.headerFont} variant="h5"
+                            color='textSecondary'>Szia {getToken().sub}</Typography>
 
               </Grid>
               <Grid item>
                 <Tooltip title="Kijelentkezes">
+
                   <IconButton onClick={() => {
                     localStorage.removeItem('token')
                     setIsLoggedOut(true)
-                  }}>
-                    < MeetingRoomIcon/>
+                  }} component={RouterLink} to="/login">
+                    <MeetingRoomIcon/>
                   </IconButton>
+
+                  {/*<IconButton onClick={() => {*/}
+                  {/*  localStorage.removeItem('token')*/}
+                  {/*  setIsLoggedOut(true)*/}
+                  {/*  history.push('/login')*/}
+                  {/*}}>*/}
+                  {/*  < MeetingRoomIcon/>*/}
+                  {/*</IconButton>*/}
                 </Tooltip>
               </Grid>
             </>

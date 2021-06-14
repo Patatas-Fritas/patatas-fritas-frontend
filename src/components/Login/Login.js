@@ -29,7 +29,7 @@ function Login() {
     }
 
     useEffect(() => {
-        if (loginState.user.username) {
+        if (localStorage.getItem('token')) {
             clearState();
             history.push('/');
         }
@@ -66,10 +66,11 @@ function Login() {
         event.preventDefault();
         const { value } = event.target;
 
-        const regExp = /[^a-z\d]/i;
+        const regExp = /[a-zA-Z0-9áéöüóúőíű]+/i;
         let regError = '';
         const regExpTest = regExp.test(value);
-        if (regExpTest) { regError = 'Alphanumerical only!'; }
+        console.log(regExpTest)
+        if (!regExpTest) { regError = 'Alphanumerical only!'; }
 
         setUsernameInput({
             userValue: value,
