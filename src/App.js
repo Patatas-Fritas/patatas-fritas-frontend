@@ -7,6 +7,7 @@ import HangmanPage from "./pages/Games/HangmanPage/HangmanPage";
 import HotspotPage from "./pages/Games/HotspotPage/HotspotPage";
 import {ExercisePage} from "./pages/ExercisePage/ExercisePage";
 import PetChooser from './pages/PetChooser/PetChooser';
+import {PetFeeder} from "./pages/PetFeeder/PetFeeder.js";
 import Header from "./components/Header/Header";
 import {createMuiTheme, ThemeProvider} from "@material-ui/core";
 import {grey} from "@material-ui/core/colors";
@@ -47,6 +48,7 @@ function App() {
                         <Route exact path="/admin/hotspot" component={HotspotPage}/>
                         <Route exact path="/exercise" component={ExercisePage}/>
                         <Route exact path="/petchooser" component={PetChooser}/>
+                        <Route exact path="/petfeeder" component={PetFeeder}/>
                     </Switch>
                 </Router>
             </ThemeProvider>
