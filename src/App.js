@@ -10,6 +10,7 @@ import PetChooser from './pages/PetChooser/PetChooser';
 import Header from "./components/Header/Header";
 import {createMuiTheme, ThemeProvider} from "@material-ui/core";
 import {grey} from "@material-ui/core/colors";
+import HotspotKidPage from "./pages/Games/HotspotPage/HotspotKidPage";
 
 export const theme = createMuiTheme({
     palette: {
@@ -44,6 +45,7 @@ function App() {
                         <Route exact path="/login" component={Login}/>
                         <Route exact path="/register" component={Registration}/>
                         <Route exact path="/hangman" component={HangmanPage}/>
+                        <Route exact path="/hotspot" component={HotspotKidPage}/>
                         <Route exact path="/admin/hotspot" component={HotspotPage}/>
                         <Route exact path="/exercise" component={ExercisePage}/>
                         <Route exact path="/petchooser" component={PetChooser}/>
