@@ -75,7 +75,7 @@ export function PetFeeder() {
             <div>
                 <Container>
                     <Grid container direction="row" justify="center" alignItems="center" spacing={3}>
-                        <Grid item key={petStatus.petId} xs={12} md={6} lg={6}>
+                        <Grid item key={petStatus.petId} xs={8} md={12} lg={6}>
                             <CardContent>
                             <Typography variant="body2" color="textPrimary" component="p">
                                 {petStatus.petName} 15 ponttal rendelkezik.
