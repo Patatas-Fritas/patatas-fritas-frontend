@@ -6,7 +6,8 @@ import Card from "@material-ui/core/Card";
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import CardContent from '@material-ui/core/CardContent';
-
+import sad_3 from "../../assets/images/pets/sad_3.jpg";
+import happy_3 from "../../assets/images/pets/happy_3.jpg";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -21,6 +22,7 @@ const useStyles = makeStyles((theme) => ({
     },
     media: {
         maxHeight: 500,
+        margin: '0 auto'
     },
     paper: {
         padding: theme.spacing(2),
@@ -34,6 +36,9 @@ const useStyles = makeStyles((theme) => ({
 
 export function PetFeeder() {
     const [petStatus, setPetStatus] = useState([])
+    const [errorMessage, setErrorMessage] = useState('');
+    const token = localStorage.getItem('token');
+
 
     useEffect(() => {
         const token = localStorage.getItem('token');
@@ -49,7 +54,7 @@ export function PetFeeder() {
                 })
                 const data = await response.json()
                 setPetStatus(data)
-                console.log(petStatus)
+                console.log(petStatus.petId)
             } catch (error) {
                 console.log(error)
             }
@@ -60,31 +65,73 @@ export function PetFeeder() {
     }, [])
 
     const feed = (event) => {
+        event.preventDefault();
+        if (petStatus.petScore < 5) {
+            setErrorMessage('Sajnos nincs elég pontod, hogy megetes, játsz egyet hogy megtehesd!')
+        }
+        feedPet();
+    }
 
-        console.log('Kaki');
+    const feedPet = async () => {
+        console.log('petchooser request sent')
+        console.log(token);
+        try {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/petfeeder`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'patatas-fritas-token': token
+                },
+            })
+            const data = await response.json()
+            setPetStatus(data)
+        } catch (error) {
+            console.log(error)
+        }
+        console.log(petStatus)
+        console.log('kész');
     };
+
+
+    /*    function getImageName(id, isHungry) {
+            if (isHungry) {
+                console.log("éhes");
+                return "sad_".concat(id);
+            } else {
+                return "happy_" + id;
+            }
+        }*/
+
+    const styles = useStyles();
 
 
     return (
         <div>
-            {petStatus.isHungry &&
-            <h3>Etesd meg kis pajtásod!</h3>}
-            {!petStatus.isHungry &&
-            <h3>Kis parjtásod már megetetted!</h3>
+            <Typography align={"center"} variant={"h4"}>Kisállat etető</Typography>
+            {!petStatus.isHungry
+                ? <Typography align={"center"} variant={"h6"}>Ma már megetettél! Játsz velem holnap is hogy
+                    lakomázhassak!</Typography>
+                : <Typography align={"center"} variant={"h6"}>Már nagyon éhes vagyok! Alig várom, hogy
+                    megetess!</Typography>
             }
             <div>
                 <Container>
                     <Grid container direction="row" justify="center" alignItems="center" spacing={3}>
                         <Grid item key={petStatus.petId} xs={8} md={12} lg={6}>
                             <CardContent>
-                            <Typography variant="body2" color="textPrimary" component="p">
-                                {petStatus.petName} 15 ponttal rendelkezik.
-                            </Typography>
+                                <Typography align={"center"} variant={"h6"} color="textPrimary" component="p">
+                                    {petStatus.petName} {petStatus.petScore} ponttal rendelkezik.
+                                </Typography>
+                                {petStatus.isHungry &&
+                                <img style={{margin: '0 auto', display: "flex", maxWidth: "50%"}} className={styles.media} src={sad_3} alt='image'/>}
+                                {!petStatus.isHungry &&
+                                <img style={{margin: '0 auto', display: "flex", maxWidth: "50%"}} className={styles.media} src={happy_3} alt='image'/>
+                                }
+
                             </CardContent>
                             <Card elevation={1}>
-                                <Button onClick={() => {
-                                    feed(petStatus.petId)
-                                }}>Megetetem</Button>
+                                <Button  style={{margin: '0 auto', display: "flex", maxWidth: "20%"}} onClick={feed}><Typography align={"center"}
+                                                                   variant={"h6"}> Megetetem</Typography></Button>
 
                             </Card>
                         </Grid>
