@@ -31,39 +31,13 @@ export function ExercisePage() {
           }
         })
         const data = await response.json()
+        console.log(data)
         setExercises(data)
       } catch(error) {
           console.log(error)
       }
     }
     fetchData()
-    // const exerciseArray = [
-    //   {
-    //     id: 1,
-    //     title: 'gyumik',
-    //     details: 'asd asd asd nyam',
-    //     category: 'akasztofa'
-    //   },
-    //   {
-    //     id: 2,
-    //     title: 'allatok',
-    //     details: 'asd asd asd vau',
-    //     category: 'kepes'
-    //   },
-    //   {
-    //     id: 3,
-    //     title: 'Dinnye ',
-    //     details: 'asd asd asd $$$',
-    //     category: 'akasztofa'
-    //   },
-    //   {
-    //     id: 4,
-    //     title: 'alvas',
-    //     details: 'asd asd asd',
-    //     category: 'kepes'
-    //   }
-    // ]
-    // setExercises(exerciseArray)
 },[])
 
 const styles = useStyles()

@@ -23,35 +23,33 @@ const useStyles = makeStyles({
   },
   avatar2: {
     backgroundColor: (exercise) => {
-      if (exercise.category == 'akasztofa') {
+      console.log(exercise.type)
+      if (exercise.type === 'Hotspot') {
         return yellow[700]
       }
-      if (exercise.category == 'money') {
-        return green[500]
-      }
-      if (exercise.category == 'kepes') {
+      if (exercise.type == 'Hangman') {
         return pink[500]
       }
-      return amber[300]
+      return green[300]
     },
   }
 });
 
 export default function ExerciseCard({ exercise }) {
   console.log(exercise)
-  console.log(exercise.category)
-  const styles = useStyles()
+  console.log(exercise.type)
+  const styles = useStyles(exercise)
   return (
     <div>
       <Card elevation={1}>
         <CardHeader
           avatar={
             <Avatar className={styles.avatar2}>
-              {exercise.category[0].toUpperCase()}
+              {exercise.type[0].toUpperCase()}
             </Avatar>
           }
           title={exercise.title}
-          subheader={<Typography className={styles.subColor}>{exercise.category}</Typography>}
+          subheader={<Typography className={styles.subColor}>{exercise.type}</Typography>}
         />
       </Card>
     </div>
