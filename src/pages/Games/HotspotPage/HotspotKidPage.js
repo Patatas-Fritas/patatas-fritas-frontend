@@ -26,12 +26,12 @@ function HotspotKidPage() {
     }
 
     fetchData()
-  }, [])
+  }, []);
 
   const contains = (x, y, rect) => {
     return rect.x <= x && x <= rect.x + rect.width &&
       rect.y <= y && y <= rect.y + rect.height;
-  }
+  };
 
   async function sendScore() {
     const token = localStorage.getItem('token');
@@ -42,7 +42,7 @@ function HotspotKidPage() {
           'Content-Type': 'application/json',
           'patatas-fritas-token': token
         }
-      })
+      });
       const responseData = await response.json()
       console.log(responseData)
     } catch (error) {
@@ -56,12 +56,12 @@ function HotspotKidPage() {
     var x = e.clientX - rect.left; //x position within the element.
     var y = e.clientY - rect.top;  //y position within the element.
     console.log("Left? : " + x + " ; Top? : " + y + ".");
-    console.log(contains(x, y, gameData.rectangle))
+    console.log(contains(x, y, gameData.rectangle));
     if (contains(x, y, gameData.rectangle)) {
-      setGameOutcome('Nyertel!')
+      setGameOutcome('Nyertél!')
       sendScore()
     } else {
-      setGameOutcome('Vesztettel!')
+      setGameOutcome('Vesztettél!')
     }
   }
 
@@ -86,7 +86,7 @@ function HotspotKidPage() {
         <Typography variant={'h3'} color={"secondary"} style={{ margin: '0 auto' }}>{gameOutcome}</Typography>
         }
       </div>
-    </>
+  </>
   );
 }
 
