@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import { useHistory, Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 // import { getUserData } from '../../actions/loginActions';
-import Button from '../Button/Button';
+import Button from '@material-ui/core/Button';
 import amigo from '../../assets/images/amigo.png';
 import './login.css';
 import {loginAction} from "../../actions/login.action";
 
 function Login() {
-    // const history = useHistory();
+    const history = useHistory();
     const loginState = useSelector((state) => state.login);
 
     const dispatch = useDispatch();
@@ -27,6 +27,14 @@ function Login() {
         setUsernameInput('');
         setPasswordInput('');
     }
+
+    useEffect(() => {
+        if (loginState.user.username) {
+            clearState();
+            history.push('/');
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [loginState]);
 
     const [display, setDisplay] = useState({
         color: '#ffffff',
@@ -75,7 +83,7 @@ function Login() {
         let { error } = passwordInput;
 
         error = value.length < 8
-            ? 'Password must be at least 8 characters long!'
+            ? 'A jelszónak legalább 4 karakter hosszúnak kell lennie!'
             : '';
 
         setPasswordInput({
@@ -90,24 +98,25 @@ function Login() {
         }
     }
 
+    console.log(loginState.user)
+
     return (
         <form id="loginForm">
             <img src={amigo} alt="kids"/>
             <h1>Sign in</h1>
             {/*<p className="logError" style={display}>{loginData.errorMessage}</p>*/}
             <label htmlFor="User">
-                Username
+                Felhasználónév
                 <input name="User" type="text" onChange={usernameChange} onKeyPress={hitEnter} />
             </label>
             <p className="logError" style={display}>{usernameInput.error}</p>
             <label htmlFor="Password">
-                Password
+                Jelszó
                 <input name="Password" type="password" onChange={passwordChange} onKeyPress={hitEnter} />
             </label>
             <p className="logError" style={display}>{passwordInput.error}</p>
             <div className="buttons">
-                <Link to="/register"><Button buttonText="REGISTER" buttonClass="emptyButton" /></Link>
-                <Button buttonText="LOGIN" handleClick={loginClick} buttonClass={!usernameInput.userValue || !passwordInput.passwordValue || usernameInput.error || passwordInput.error ? 'disabledButton' : ''} />
+                <Button variant='contained' color='secondary'  onClick={loginClick} buttonClass={!usernameInput.userValue || !passwordInput.passwordValue || usernameInput.error || passwordInput.error ? 'disabledButton' : ''}>BELÉPÉS</Button>
             </div>
         </form>
 

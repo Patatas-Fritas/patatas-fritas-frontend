@@ -8,6 +8,7 @@ import pet_cat from "../../assets/images/chooser/2.jpg";
 import pet_dog from "../../assets/images/chooser/3.jpg";
 import pet_fox from "../../assets/images/chooser/4.jpg";
 import pet_mink from "../../assets/images/chooser/5.jpg";
+import Typography from "@material-ui/core/Typography";
 import Button from "../../components/Button/Button";
 
 
@@ -23,6 +24,7 @@ const useStyles = makeStyles((theme) => ({
     },
     media: {
         maxHeight: 500,
+        margin: '0 auto'
     },
     paper: {
         padding: theme.spacing(2),
@@ -81,28 +83,35 @@ function PetChooser() {
         return savePet();
     };
 
+  const styles = useStyles();
 
     return (
         <form id="petChooserForm">
-            <h3>Üdvözlünk a Kalandorok között!</h3>
-            <h3>Kérlek válassz egy kis barátot, aki a társad lesz a kalandozásaid során!</h3>
-            <h3>Nincs más dolgod, csak kattints egy képre!</h3>
-            <Grid container spacing={5}>
-                <Grid item xs={4}>
+            <div>
+                <Typography variant={"h5"}>Üdvözlünk a Kalandorok között!</Typography>
+                <Typography variant={"h5"}>Kérlek válassz egy kis barátot, aki a társad lesz a kalandozásaid
+                    során!</Typography>
+                <Typography variant={"h5"}>Nincs más dolgod, csak kattints egy képre!</Typography>
+            </div>
+            <Grid container direction="row" spacing={2} md={10} alignItems="center" justify="center">
+                <Grid item xs={4} md={3} lg={3} style={{maxWidth: "20%"}}>
                     <Card className={classes.root}>
                         <CardMedia
+                            className={styles.media}
                             component="img"
                             alt="próba"
                             image={pet_dinosaur}
                             title="Dino"
                             id={1}
+                            alignItems="center" justify="center"
                             onClick={getPetId}
                         />
                     </Card>
                 </Grid>
-                <Grid item xs={4}>
+                <Grid item xs={4} md={3} lg={3} style={{maxWidth: "20%"}}>
                     <Card className={classes.root}>
                         <CardMedia
+                            className={styles.media}
                             component="img"
                             alt="próba"
                             image={pet_cat}
@@ -112,9 +121,10 @@ function PetChooser() {
                         />
                     </Card>
                 </Grid>
-                <Grid item xs={4}>
+                <Grid item xs={4} md={3} lg={3} style={{maxWidth: "20%"}}>
                     <Card className={classes.root}>
                         <CardMedia
+                            className={styles.media}
                             component="img"
                             alt="próba"
                             image={pet_dog}
@@ -124,9 +134,10 @@ function PetChooser() {
                         />
                     </Card>
                 </Grid>
-                <Grid item xs={4}>
+                <Grid item xs={4} md={3} style={{maxWidth: "20%"}}>
                     <Card className={classes.root}>
                         <CardMedia
+                            className={styles.media}
                             component="img"
                             alt="próba"
                             image={pet_fox}
@@ -136,9 +147,10 @@ function PetChooser() {
                         />
                     </Card>
                 </Grid>
-                <Grid item xs={4}>
+                <Grid item xs={4} md={3} style={{maxWidth: "20%"}}>
                     <Card className={classes.root}>
                         <CardMedia
+                            className={styles.media}
                             component="img"
                             alt="próba"
                             image={pet_mink}
@@ -149,20 +161,24 @@ function PetChooser() {
                     </Card>
                 </Grid>
             </Grid>
-            <label htmlFor="petName">Nevezd el új pajtásod:
-                <input
-                    name="petName"
-                    value={petName}
-                    type="text"
-                    placeholder="Pajtásod neve"
-                    onChange={onPetNameChange}
-                /></label>
-            <Button
-                id="savButton"
-                buttonText="Mentés"
-                handleClick={savePetClick}
-                buttonClass={errorMessage ? 'disabledButton' : ''}
-            />
+            <div>
+                <Typography variant={"h5"}><label htmlFor="petName">Nevezd el új pajtásod:
+                    <input
+                        name="petName"
+                        value={petName}
+                        type="text"
+                        placeholder="Pajtásod neve"
+                        onChange={onPetNameChange}
+                    /></label>
+                    <Button
+                        id="savButton"
+                        buttonText="Mentés"
+                        handleClick={savePetClick}
+                        buttonClass={errorMessage ? 'disabledButton' : ''}
+                    />
+
+                </Typography>
+            </div>
         </form>
     );
 }

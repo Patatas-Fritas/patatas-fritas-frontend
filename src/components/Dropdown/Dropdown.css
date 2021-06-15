@@ -1,0 +1,87 @@
+.dd-wrapper {
+ cursor: pointer;
+ position: absolute;
+ top: 0.75rem;
+ right: 1.75rem;
+ min-width: 10rem;
+ max-height: 0.25rem;
+}
+
+.dd-header {
+ display: flex;
+ flex-direction: row;
+ justify-content: center;
+ cursor: pointer;
+ padding: 0.5rem;
+ border-radius: 5%;
+ text-decoration: none;
+ text-align: center;
+ color: #ffffff;
+}
+
+.dd-icon {
+ height: 1rem;
+ width: auto;
+ margin-left: 0.5rem;
+}
+
+.dd-header:active, 
+.dd-header:focus,
+.dd-list-item-button:active,
+.dd-list-item-button:focus {
+ outline: none;
+ font-weight: 900;
+}
+
+.dd-header:hover,
+.dd-list-item-button:hover,
+.dd-header-title:hover {
+ background-color: rgb(1, 150, 150);
+ font-weight: 900;
+}
+
+.dd-header-title {
+ font-size: 1.25rem;
+ font-family: Montserrat;
+ font-weight: 500;
+}
+
+.dd-list {
+ background-color: #00a6a6ff;
+ display: flex;
+ flex-direction: column;
+ border-radius: 5%;
+}
+
+.dd-list-item {
+ padding: 0.2rem;
+}
+
+.dd-list-item-button {
+ border: 0;
+ border-radius: 5%;
+ width: 100%;
+ height: 100%;
+ text-transform: uppercase;
+ letter-spacing: 0.1rem;
+ text-align: left;
+ border: none;
+ background-color: inherit;
+ color: white;
+ font-family: Montserrat;
+ font-size: 0.8rem;
+ padding: 0.6rem;
+ cursor: pointer;
+ font-weight: bold;
+}
+
+@media (max-width: 600px) {
+ .dd-wrapper {
+  position: inherit;
+  display: flex;
+  flex-direction: column;
+ }
+ .dd-list {
+  z-index: 100;
+ }
+}

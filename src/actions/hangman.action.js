@@ -7,13 +7,13 @@ export const hangmanAction = {
     nextWord
 }
 
-function initializeWordToGuess() {
+function initializeWordToGuess(gameId) {
     return async dispatch => {
         dispatch(request())
 
         try {
-            const response = await hangmanService.initializeWordsToGuess()
-            dispatch(success({words: response}))
+            const response = await hangmanService.initializeWordsToGuess(gameId)
+            dispatch(success({words: response.texts}))
         } catch(error) {
             dispatch(failure({error: error.toString()}))
         }
