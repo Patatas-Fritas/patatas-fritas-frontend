@@ -31,9 +31,7 @@ const useStyles = makeStyles({
   valami: {
     flex: '0 1 auto',
   },
-  asd: {
-    flex: '1'
-  }
+
 });
 
 function Header() {
@@ -98,6 +96,7 @@ function Header() {
           <Grid item container direction="row" justify="flex-end" alignItems="center" wrap="nowrap" spacing={2} xs={10}>
             {!isLoggedIn() &&
             <>
+              <Grid item container direction="row" justify="flex-end" alignItems="center" wrap="nowrap" spacing={3}>
               <Grid item className={styles.asd}>
                 <Link component={RouterLink} to="/login">
                   <Typography className={styles.headerFont} variant="h4"
@@ -110,6 +109,7 @@ function Header() {
                   <Typography className={styles.headerFont} variant="h4" color='textSecondary'>Regisztráció</Typography>
                 </Link>
               </Grid>
+                </Grid>
             </>
             }
             {isLoggedIn() && getToken().role === 'ROLE_ADMIN' &&
