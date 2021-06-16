@@ -66,14 +66,6 @@ function Header() {
     }
   }, [width]);
 
-  useEffect(() => {
-    if (isLoggedOut) {
-      // history.push('/login')
-      // setIsLoggedOut(false)
-    }
-
-  }, [isLoggedOut === true]);
-
   const isLoggedIn = () => {
     return localStorage.getItem('token') != null
   }
@@ -91,25 +83,33 @@ function Header() {
   return (
     <AppBar position="static" className={styles.header}>
       <Toolbar>
-        <Grid container direction="row" alignItems="center" justify="flex-end">
+        <Grid container direction="row" alignItems="center" justify="flex-start">
           <Grid item xs={2}>
             <Link component={RouterLink} to="/">
               <img className={styles.image} src={amigosLogo} alt="Amigos logo"/>
             </Link>
           </Grid>
-          <Grid item container direction="row" justify="flex-end" alignItems="center" wrap="nowrap" spacing={2} xs={10}>
+          {isLoggedIn() &&
+          <Grid item className={styles.valami}>
+
+            <Typography className={styles.headerFont} variant="h5"
+                        color='textSecondary'>Szia {getToken().sub}</Typography>
+
+          </Grid>
+          }
+          <Grid item container direction="row" justify="flex-end" alignItems="center" wrap="nowrap" spacing={2} xs={9}>
             {!isLoggedIn() &&
             <>
-              <Grid item className={styles.asd}>
+              <Grid item className={styles.asd} xs={2}>
                 <Link component={RouterLink} to="/login">
                   <Typography className={styles.headerFont} variant="h4"
-                              color='textSecondary'>Bejelentkezes</Typography>
+                              color='textSecondary'>Bejelentkezés</Typography>
                 </Link>
               </Grid>
 
-              <Grid item className={styles.asd}>
+              <Grid item className={styles.asd} xs={2}>
                 <Link component={RouterLink} to="/register">
-                  <Typography className={styles.headerFont} variant="h4" color='textSecondary'>Regisztracio</Typography>
+                  <Typography className={styles.headerFont} variant="h4" color='textSecondary'>Regisztráció</Typography>
                 </Link>
               </Grid>
             </>
@@ -120,7 +120,7 @@ function Header() {
                     className={styles.asd}>
                 <Grid item>
                   <Link component={RouterLink} to="/">
-                    <Typography className={styles.headerFont} variant="h4" color='textSecondary'>Oktatas</Typography>
+                    <Typography className={styles.headerFont} variant="h4" color='textSecondary'>Oktatás</Typography>
                   </Link>
                 </Grid>
 
@@ -139,30 +139,21 @@ function Header() {
                     className={styles.asd}>
                 <Grid item>
                   <Link component={RouterLink} to="/exercise">
-                    <Typography className={styles.headerFont} variant="h4" color='textSecondary'>Tanulas</Typography>
+                    <Typography className={styles.headerFont} variant="h4" color='textSecondary'>Tanulás</Typography>
                   </Link>
                 </Grid>
 
                 <Grid item>
-                  <Link component={RouterLink} to="/">
-                    <Typography className={styles.headerFont} variant="h4" color='textSecondary'>Allatka
-                      kucko</Typography>
+                  <Link component={RouterLink} to="/petfeeder">
+                    <Typography className={styles.headerFont} variant="h4" color='textSecondary'>Állatka
+                      kuckó</Typography>
                   </Link>
                 </Grid>
               </Grid>
-
-
             </>
             }
             {isLoggedIn() &&
-            <>
-              <Grid item className={styles.valami}>
-
-                <Typography className={styles.headerFont} variant="h5"
-                            color='textSecondary'>Szia {getToken().sub}</Typography>
-
-              </Grid>
-              <Grid item>
+              <Grid item xs={1}>
                 <Tooltip title="Kijelentkezes">
 
                   <IconButton onClick={() => {
@@ -171,17 +162,8 @@ function Header() {
                   }} component={RouterLink} to="/login">
                     <MeetingRoomIcon/>
                   </IconButton>
-
-                  {/*<IconButton onClick={() => {*/}
-                  {/*  localStorage.removeItem('token')*/}
-                  {/*  setIsLoggedOut(true)*/}
-                  {/*  history.push('/login')*/}
-                  {/*}}>*/}
-                  {/*  < MeetingRoomIcon/>*/}
-                  {/*</IconButton>*/}
                 </Tooltip>
               </Grid>
-            </>
             }
           </Grid>
         </Grid>
