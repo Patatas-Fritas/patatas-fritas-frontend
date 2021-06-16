@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import {DropzoneDialogBase} from 'material-ui-dropzone'
 import Button from '@material-ui/core/Button';
 import { Alert } from '@material-ui/lab';
+import { Input } from '@material-ui/core';
+import Grid from "@material-ui/core/Grid";
 
 import {hotspotAction} from "../../../actions/hotspot.action";
 
@@ -16,6 +18,7 @@ function HotspotPage() {
     const [imageState, setImageState] = useState(null)
     const imageStateRef = useRef(imageState)
     const [error, setError] = useState(null)
+    const [title, setTitle] = useState(null)
 
     const setImage = imgSrc => {
         imageStateRef.current = imgSrc
@@ -81,7 +84,7 @@ function HotspotPage() {
         // if (X === 0 || Y === 0 || width === 0 || height === 0) {
         //     return setError('A koordináták kijelölése kötelező!')
         // }
-        dispatch(hotspotAction.saveHotspot(imageStateRef.current.src, {X, Y, width, height}))
+        dispatch(hotspotAction.saveHotspot(imageStateRef.current.src, {X, Y, width, height}, title))
         setError(null)
     }
 
@@ -99,11 +102,19 @@ function HotspotPage() {
         setError(null)
     }
 
+    function titleChange(e) {
+        setTitle(e.target.value)
+    }
+
     return (
-        <div>
+        <div style={{ display: 'flex', marginTop: '2vh' }}>
+            <div style={{ margin: '0 auto', width: "50%"}}>
             {error &&
             <Alert variant="filled" severity="warning">{error}</Alert>
             }
+            <div style={{ margin: '0 auto', padding: "2vh"}}>
+                <Input id="outlined-basic" label="Outlined" variant="outlined" onChange={titleChange} />
+            </div>
             <canvas style={{border: '1px solid black'}} id="canvas" width={canvasSize.width} height={canvasSize.height} ref={canvasRef}/>
             <br/>
             {/*ToDo a feltoltes gomb disabled amig nincs kep*/}
@@ -133,6 +144,7 @@ function HotspotPage() {
                     setFileObjects([].concat(fileObjects, newFileObjs));
                 }}
             />
+            </div>
         </div>
     );
 }

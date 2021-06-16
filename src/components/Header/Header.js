@@ -14,8 +14,6 @@ import Link from '@material-ui/core/Link';
 import Tooltip from '@material-ui/core/Tooltip';
 import IconButton from '@material-ui/core/IconButton';
 import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
-// import './Header.css';
-// import Dropdown from '../Dropdown/Dropdown';
 
 const useStyles = makeStyles({
   header: {
