@@ -13,174 +13,182 @@ import Button from "../../components/Button/Button";
 
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-        display: 'flex',
-        flexWrap: 'wrap',
-        '& > *': {
-            margin: theme.spacing(1),
-            width: theme.spacing(10),
-            height: theme.spacing(16),
-        },
+  root: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    '& > *': {
+      margin: theme.spacing(1),
+      width: theme.spacing(10),
+      height: theme.spacing(16),
     },
-    media: {
-        maxHeight: 500,
-        margin: '0 auto'
-    },
-    paper: {
-        padding: theme.spacing(2),
-        textAlign: 'center',
-        color: theme.palette.text.secondary,
-    },
+  },
+  media: {
+    maxHeight: 500,
+    margin: '0 auto'
+  },
+  paper: {
+    padding: theme.spacing(2),
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+  },
 }));
 
 function PetChooser() {
-    const [petName, setPetName] = useState('');
-    const [petId, setPetId] = useState('');
-    const token = localStorage.getItem('token');
+  const [petName, setPetName] = useState('');
+  const [petId, setPetId] = useState('');
+  const token = localStorage.getItem('token');
 
-    const [errorMessage, setErrorMessage] = useState('');
-    const classes = useStyles();
+  const [errorMessage, setErrorMessage] = useState('');
+  const classes = useStyles();
 
-    const savePet = async () => {
-        console.log('petchooser request sent')
-        let petObj = {
-            petId,
-            petName
-        }
-        console.log(token);
-        const response = await fetch(`${process.env.REACT_APP_API_URL}/petchooser`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'patatas-fritas-token': token
-            },
-            body: JSON.stringify(petObj)
-        })
-        console.log(response.status)
-        console.log(response)
-    };
+  const savePet = async () => {
+    console.log('petchooser request sent')
+    let petObj = {
+      petId,
+      petName
+    }
+    console.log(token);
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/petchooser`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'patatas-fritas-token': token
+      },
+      body: JSON.stringify(petObj)
+    })
+    console.log(response.status)
+    console.log(response)
+  };
 
-    const onPetNameChange = (event) => {
-        if (errorMessage) {
-            setErrorMessage('');
-        }
-        setPetName(event.target.value);
-    };
+  const onPetNameChange = (event) => {
+    if (errorMessage) {
+      setErrorMessage('');
+    }
+    setPetName(event.target.value);
+  };
 
-    const getPetId = (event) => {
-        if (errorMessage) {
-            setErrorMessage('');
-        }
-        setPetId(event.target.id);
-    };
+  const getPetId = (event) => {
+    if (errorMessage) {
+      setErrorMessage('');
+    }
+    console.dir(event.target)
+    setPetId(event.target.id);
+  };
 
-    const savePetClick = (event) => {
-        event.preventDefault();
-        if (!petId || !petName) {
-            setErrorMessage('Válassz pajtást és nevezd el!');
-            return null;
-        }
-        return savePet();
-    };
+  const savePetClick = (event) => {
+    event.preventDefault();
+    if (!petId || !petName) {
+      setErrorMessage('Válassz pajtást és nevezd el!');
+      return null;
+    }
+    return savePet();
+  };
 
     const styles = useStyles();
 
-    return (
-        <form id="petChooserForm">
-            <div>
-                <Typography variant={"h5"}>Üdvözlünk a Kalandorok között!</Typography>
-                <Typography variant={"h5"}>Kérlek válassz egy kis barátot, aki a társad lesz a kalandozásaid
-                    során!</Typography>
-                <Typography variant={"h5"}>Nincs más dolgod, csak kattints egy képre!</Typography>
-            </div>
-            <Grid container direction="row" spacing={2} md={10} alignItems="center" justify="center">
-                <Grid item xs={4} md={3} lg={3} style={{maxWidth: "20%"}}>
-                    <Card className={classes.root}>
-                        <CardMedia
-                            className={styles.media}
-                            component="img"
-                            alt="próba"
-                            image={pet_dinosaur}
-                            title="Dino"
-                            id={1}
-                            alignItems="center" justify="center"
-                            onClick={getPetId}
-                        />
-                    </Card>
-                </Grid>
-                <Grid item xs={4} md={3} lg={3} style={{maxWidth: "20%"}}>
-                    <Card className={classes.root}>
-                        <CardMedia
-                            className={styles.media}
-                            component="img"
-                            alt="próba"
-                            image={pet_cat}
-                            title="Cat"
-                            id={2}
-                            onClick={getPetId}
-                        />
-                    </Card>
-                </Grid>
-                <Grid item xs={4} md={3} lg={3} style={{maxWidth: "20%"}}>
-                    <Card className={classes.root}>
-                        <CardMedia
-                            className={styles.media}
-                            component="img"
-                            alt="próba"
-                            image={pet_dog}
-                            title="Dog"
-                            id={3}
-                            onClick={getPetId}
-                        />
-                    </Card>
-                </Grid>
-                <Grid item xs={4} md={3} style={{maxWidth: "20%"}}>
-                    <Card className={classes.root}>
-                        <CardMedia
-                            className={styles.media}
-                            component="img"
-                            alt="próba"
-                            image={pet_fox}
-                            title="Fox"
-                            id={4}
-                            onClick={getPetId}
-                        />
-                    </Card>
-                </Grid>
-                <Grid item xs={4} md={3} style={{maxWidth: "20%"}}>
-                    <Card className={classes.root}>
-                        <CardMedia
-                            className={styles.media}
-                            component="img"
-                            alt="próba"
-                            image={pet_mink}
-                            title="Fox"
-                            id={5}
-                            onClick={getPetId}
-                        />
-                    </Card>
-                </Grid>
+  return (
+    <form id="petChooserForm">
+        <Grid container alignContent="center" justify="center"style={{marginTop: "5vh"}}>
+      <Grid container alignContent="center" justify="center" style={{marginTop: "3vh", maxWidth: "50%"}}>
+        <Typography variant={"h5"}>Üdvözlünk a Kalandorok között!</Typography>
+        <Typography variant={"h5"}>Kérlek válassz egy kis barátot, aki a társad lesz a kalandozásaid
+          során!</Typography>
+        <Typography variant={"h5"}>Nincs más dolgod, csak kattints egy képre!</Typography>
+      </Grid>
+      <Grid container direction="row" spacing={2} md={8} alignItems="center" justify="center" style={{margin: "4vh"}}>
+        <Grid item xs={8} md={4} lg={4}>
+          <Card className={classes.root}>
+            <CardMedia
+              className={styles.media}
+              component="img"
+              alt="próba"
+              image={pet_dinosaur}
+              title="Dino"
+              id={1}
+              alignItems="center" justify="center"
+              onClick={getPetId}
+            />
+          </Card>
+        </Grid>
+          <Grid item xs={8} md={4} lg={4}>
+          <Card className={classes.root}>
+            <CardMedia
+              className={styles.media}
+              component="img"
+              alt="próba"
+              image={pet_cat}
+              title="Cat"
+              id={2}
+              onClick={getPetId}
+            />
+          </Card>
+        </Grid>
+          <Grid item xs={8} md={4} lg={4}>
+          <Card className={classes.root}>
+            <CardMedia
+              className={styles.media}
+              component="img"
+              alt="próba"
+              image={pet_dog}
+              title="Dog"
+              id={3}
+              onClick={getPetId}
+            />
+          </Card>
+        </Grid>
+          <Grid item xs={8} md={4} lg={4}>
+          <Card className={classes.root}>
+            <CardMedia
+              className={styles.media}
+              component="img"
+              alt="próba"
+              image={pet_fox}
+              title="Fox"
+              id={4}
+              onClick={getPetId}
+            />
+          </Card>
+        </Grid>
+          <Grid item xs={8} md={4} lg={4}>
+          <Card className={classes.root}>
+            <CardMedia
+              className={styles.media}
+              component="img"
+              alt="próba"
+              image={pet_mink}
+              title="Fox"
+              id={5}
+              onClick={getPetId}
+            />
+          </Card>
+        </Grid>
+      </Grid>
+      <Grid container direction="column" justify="center" alignItems="center" spacing={3} style={{ margin: "3vh" }}>
+        <Typography variant={"h5"}>
+          <label htmlFor="petName">Nevezd el új pajtásod:
+            <Grid>
+              <input
+                name="petName"
+                value={petName}
+                type="text"
+                placeholder="Pajtásod neve"
+                onChange={onPetNameChange}
+              />
             </Grid>
-            <div>
-                <Typography variant={"h5"}><label htmlFor="petName">Nevezd el új pajtásod:
-                    <input
-                        name="petName"
-                        value={petName}
-                        type="text"
-                        placeholder="Pajtásod neve"
-                        onChange={onPetNameChange}
-                    /></label>
-                    <Button
-                        id="savButton"
-                        buttonText="Mentés"
-                        handleClick={savePetClick}
-                        buttonClass={errorMessage ? 'disabledButton' : ''}
-                    />
-
-                </Typography>
-            </div>
-        </form>
-    );
+          </label>
+          <Grid>
+            <Button
+              id="savButton"
+              buttonText="Mentés"
+              handleClick={savePetClick}
+              buttonClass={errorMessage ? 'disabledButton' : ''}
+            />
+          </Grid>
+        </Typography>
+      </Grid>
+        </Grid>
+    </form>
+  );
 }
 
 export default PetChooser;
