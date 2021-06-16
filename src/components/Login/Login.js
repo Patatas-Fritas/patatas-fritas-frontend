@@ -31,7 +31,12 @@ function Login() {
     useEffect(() => {
         if (localStorage.getItem('token')) {
             clearState();
-            history.push('/petchooser');
+            console.log(loginState.user)
+            if (loginState.user.role === 'ROLE_ADMIN') {
+                history.push('/admin/education')
+            } else {
+                history.push('/petchooser');
+            }
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [loginState]);
@@ -69,7 +74,6 @@ function Login() {
         const regExp = /[a-zA-Z0-9áéöüóúőíű]+/i;
         let regError = '';
         const regExpTest = regExp.test(value);
-        console.log(regExpTest)
         if (!regExpTest) { regError = 'Alphanumerical only!'; }
 
         setUsernameInput({
@@ -99,7 +103,7 @@ function Login() {
         }
     }
 
-    console.log(loginState.user)
+    // console.log(loginState.user)
 
     return (
         <form id="loginForm">
