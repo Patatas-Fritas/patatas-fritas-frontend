@@ -5,6 +5,7 @@ import Button from '@material-ui/core/Button';
 
 function HangmanPage() {
     const { wrongGuessCounter, progress, gameState } = useSelector((state) => state.hangman);
+    const {exerciseId} = useSelector((state) => state.exercise);
 
     const dispatch = useDispatch();
 
@@ -13,8 +14,7 @@ function HangmanPage() {
     }
 
     useEffect(() => {
-        const gameId = '3'
-        dispatch(hangmanAction.initializeWordToGuess(gameId))
+        dispatch(hangmanAction.initializeWordToGuess(exerciseId))
         document.addEventListener("keydown", handleKeyDown, false)
 
         return () => {
@@ -30,7 +30,8 @@ function HangmanPage() {
     }
 
     return (
-        <div>
+        <div style={{ display: 'flex', marginTop: '2vh' }}>
+            <div style={{ margin: '0 auto', width: "50%"}}>
             <p>Wrong Guess: {wrongGuessCounter}</p>
             <p>{progressWithSpaces}</p>
             {gameState === 'win' && (
@@ -42,6 +43,7 @@ function HangmanPage() {
             {gameState === 'lose' && (
                 <p>Vesztettel</p>
             )}
+        </div>
         </div>
     );
 }
