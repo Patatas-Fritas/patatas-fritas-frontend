@@ -5,6 +5,7 @@ import {makeStyles} from '@material-ui/core/styles';
 import Typography from "@material-ui/core/Typography";
 import {Button} from "@material-ui/core";
 import {grey, yellow} from "@material-ui/core/colors";
+import Layout from "../../components/Drawer/Drawer";
 
 const useStyles = makeStyles({
   color: {
@@ -19,6 +20,7 @@ export function EducationPage() {
   const styles = useStyles()
 
   return (
+    <Layout>
     <div style={{ display: "flex" }}>
       <div style={{ margin: "0 auto" }}>
         <Typography color="primary" variant="h4"  style={{ marginTop: "2vh" }}>Új feladat</Typography>
@@ -36,5 +38,6 @@ export function EducationPage() {
         </Grid>
       </div>
     </div>
+    </Layout>
   );
 }
