@@ -2,14 +2,22 @@ export const hotspotService = {
     saveHotspot
 };
 
-async function saveHotspot(img, rect) {
-    console.log(img, rect)
+async function saveHotspot(image, rectangle, title) {
+    // console.log(image, rectangle)
     const dataObj = {
-        img,
-        rect
+        image,
+        title,
+        rectangle
     }
-    const response = await fetch(`${process.env.REACT_APP_API_URL}/login`, {
+    console.log(dataObj)
+    console.log(JSON.stringify(dataObj))
+    const token = localStorage.getItem('token')
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/hotspot/save`, {
         method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'patatas-fritas-token': token
+        },
         body: JSON.stringify(dataObj)});
 
     return await response.json()
