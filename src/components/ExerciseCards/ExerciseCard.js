@@ -1,7 +1,7 @@
 import React from "react";
 import {useDispatch, useSelector} from 'react-redux';
 import {makeStyles} from '@material-ui/core/styles';
-import {useHistory} from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import Typography from "@material-ui/core/Typography";
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
