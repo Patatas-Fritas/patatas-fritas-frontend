@@ -1,5 +1,6 @@
 export const hangmanService = {
-    initializeWordsToGuess
+    initializeWordsToGuess,
+    saveHangman
 };
 
 async function initializeWordsToGuess(gameId) {
@@ -11,15 +12,21 @@ async function initializeWordsToGuess(gameId) {
             'patatas-fritas-token': token
         }
     })
+    return await response.json()
+}
+
+
+async function saveHangman(hangmanObj) {
+    const token = localStorage.getItem('token');
+    console.log(hangmanObj)
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/hangman/save_word`, {
+        method: 'POST',
+        body: JSON.stringify(hangmanObj),
+        headers: {
+            'Content-Type': 'application/json',
+            'patatas-fritas-token': token
+        }
+    });
 
     return await response.json()
-    // const words = [
-    //     'apple',
-    //     'cici',
-    //     'kutya',
-    //     'ciki vagy',
-    //     'mosogatogep'
-    // ]
-    //
-    // return words
 }

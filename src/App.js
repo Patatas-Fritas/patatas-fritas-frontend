@@ -1,18 +1,19 @@
 import './App.css';
-import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
-import {ChuckNorrisApi} from './pages/ChuckNorrisApi/ChuckNorrisApi.js'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { ChuckNorrisApi } from './pages/ChuckNorrisApi/ChuckNorrisApi.js'
 import Login from './components/Login/Login';
 import Registration from './components/Registration/Registration';
 import HangmanPage from "./pages/Games/HangmanPage/HangmanPage";
+import HangmanAdminPage from "./pages/Games/HangmanAdminPage/HangmanAdminPage";
 import HotspotPage from "./pages/Games/HotspotPage/HotspotPage";
-import {ExercisePage} from "./pages/ExercisePage/ExercisePage";
+import { ExercisePage } from "./pages/ExercisePage/ExercisePage";
 import PetChooser from './pages/PetChooser/PetChooser';
-import {PetFeeder} from "./pages/PetFeeder/PetFeeder.js";
+import { PetFeeder } from "./pages/PetFeeder/PetFeeder.js";
 import Header from "./components/Header/Header";
-import {createMuiTheme, ThemeProvider} from "@material-ui/core";
-import {grey} from "@material-ui/core/colors";
+import { createMuiTheme, ThemeProvider } from "@material-ui/core";
+import { grey } from "@material-ui/core/colors";
 import HotspotKidPage from "./pages/Games/HotspotPage/HotspotKidPage";
-import {EducationPage} from "./pages/EducationPage/EducationPage";
+import { EducationPage } from "./pages/EducationPage/EducationPage";
 import Layout from "./components/Drawer/Drawer";
 
 export const theme = createMuiTheme({
@@ -42,19 +43,20 @@ function App() {
     <div className="App">
       <ThemeProvider theme={theme}>
         <Router>
-          <Header/>
+          <Header />
           <Switch>
-            <Route exact path="/chuck" component={ChuckNorrisApi}/>
-            <Route exact path="/login" component={Login}/>
-            <Route exact path="/register" component={Registration}/>
-            <Route exact path="/hangman" component={HangmanPage}/>
-            <Route exact path="/hotspot" component={HotspotKidPage}/>
-            <Route exact path="/exercise" component={ExercisePage}/>
-            <Route exact path="/petchooser" component={PetChooser}/>
-            <Route exact path="/petfeeder" component={PetFeeder}/>
+            <Route exact path="/chuck" component={ChuckNorrisApi} />
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/register" component={Registration} />
+            <Route exact path="/hangman" component={HangmanPage} />
+            <Route exact path="/hotspot" component={HotspotKidPage} />
+            <Route exact path="/exercise" component={ExercisePage} />
+            <Route exact path="/petchooser" component={PetChooser} />
+            <Route exact path="/petfeeder" component={PetFeeder} />
             {/*<Layout>*/}
-              <Route exact path="/admin/education" component={EducationPage}/>
-              <Route exact path="/admin/hotspot" component={HotspotPage}/>
+            <Route exact path="/admin/education" component={EducationPage} />
+            <Route exact path="/admin/hotspot" component={HotspotPage} />
+            <Route exact path="/admin/hangman" component={HangmanAdminPage} />
             {/*</Layout>*/}
           </Switch>
         </Router>
