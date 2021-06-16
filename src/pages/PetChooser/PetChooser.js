@@ -3,11 +3,11 @@ import {makeStyles} from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardMedia from '@material-ui/core/CardMedia';
 import Grid from '@material-ui/core/Grid';
-import pet_dinosaur from "../../assets/images/chooser/1.jpg";
-import pet_cat from "../../assets/images/chooser/2.jpg";
-import pet_dog from "../../assets/images/chooser/3.jpg";
-import pet_fox from "../../assets/images/chooser/4.jpg";
-import pet_mink from "../../assets/images/chooser/5.jpg";
+import pet_dinosaur from "../../assets/images/pets/1.jpg";
+import pet_cat from "../../assets/images/pets/2.jpg";
+import pet_dog from "../../assets/images/pets/3.jpg";
+import pet_fox from "../../assets/images/pets/4.jpg";
+import pet_mink from "../../assets/images/pets/5.jpg";
 import Typography from "@material-ui/core/Typography";
 import Button from "../../components/Button/Button";
 
@@ -83,7 +83,7 @@ function PetChooser() {
         return savePet();
     };
 
-  const styles = useStyles();
+    const styles = useStyles();
 
     return (
         <form id="petChooserForm">
