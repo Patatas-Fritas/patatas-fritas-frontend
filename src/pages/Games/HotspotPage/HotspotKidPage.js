@@ -1,17 +1,19 @@
 import React, {useEffect, useState} from 'react';
+import {useSelector} from 'react-redux';
 import Typography from "@material-ui/core/Typography";
 
 function HotspotKidPage() {
   const [gameData, setGameData] = useState({})
   const [gameOutcome, setGameOutcome] = useState(null)
 
+  const {exerciseId} = useSelector((state) => state.exercise);
+
   useEffect(() => {
     const token = localStorage.getItem('token');
 
     async function fetchData() {
       try {
-        const id = 1
-        const response = await fetch(`${process.env.REACT_APP_API_URL}/hotspot/get?id=${id}`, {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/hotspot/get?id=${exerciseId}`, {
           method: 'GET', // *GET, POST, PUT, DELETE, etc.
           headers: {
             'Content-Type': 'application/json',

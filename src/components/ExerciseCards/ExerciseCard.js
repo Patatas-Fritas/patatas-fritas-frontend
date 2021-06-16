@@ -1,11 +1,15 @@
 import React from "react";
+import {useDispatch, useSelector} from 'react-redux';
 import {makeStyles} from '@material-ui/core/styles';
+import {useHistory} from 'react-router-dom';
 import Typography from "@material-ui/core/Typography";
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import {amber, blue, green, grey, pink, yellow} from "@material-ui/core/colors";
 import {Avatar} from "@material-ui/core";
+import { exerciseAction } from "../../actions/exercise.action";
+import {chuckNorrisApiAction} from "../../actions/chuckNorrisApi.action";
 
 const useStyles = makeStyles({
   subColor: {
@@ -35,12 +39,26 @@ const useStyles = makeStyles({
   }
 });
 
+
 export default function ExerciseCard({ exercise }) {
-  console.log(exercise)
-  console.log(exercise.type)
+  const dispatch = useDispatch();
   const styles = useStyles(exercise)
+  const history = useHistory();
+
+  console.log(exercise)
+
+  function handleClick(e) {
+    dispatch(exerciseAction.setCurrentExerciseId(exercise.id))
+    if (exercise.type === 'Hotspot') {
+      history.push('/hotspot')
+    }
+    if (exercise.type === 'Hangman') {
+      history.push('/hangman')
+    }
+  }
+
   return (
-    <div>
+    <div onClick={handleClick}>
       <Card elevation={1}>
         <CardHeader
           avatar={
