@@ -49,7 +49,7 @@ return (
       <Grid container direction="row" justify="center" alignItems="center" spacing={3}>
         {exercises.map(exercise => (
           <Grid item key={exercise.id} xs={12} md={6} lg={6}>
-            <ExerciseCard exercise={exercise}/>
+            <ExerciseCard exercise={exercise} />
           </Grid>
         ))}
       </Grid>
