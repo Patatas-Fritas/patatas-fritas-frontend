@@ -27,10 +27,7 @@ const useStyles = makeStyles({
   image: {
     maxWidth: '100px',
     minWidth: '100px'
-  },
-  valami: {
-    flex: '0 1 auto',
-  },
+  }
 
 });
 

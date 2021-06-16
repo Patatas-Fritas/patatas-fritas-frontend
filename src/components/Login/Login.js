@@ -31,7 +31,7 @@ function Login() {
     useEffect(() => {
         if (localStorage.getItem('token')) {
             clearState();
-            history.push('/');
+            history.push('/petchooser');
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [loginState]);
