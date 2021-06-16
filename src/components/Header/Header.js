@@ -83,31 +83,31 @@ function Header() {
   return (
     <AppBar position="static" className={styles.header}>
       <Toolbar>
-        <Grid container direction="row" alignItems="center" justify="flex-start">
+        <Grid container direction="row" alignItems="center" justify="flex-start" wrap="nowrap">
           <Grid item xs={2}>
             <Link component={RouterLink} to="/">
               <img className={styles.image} src={amigosLogo} alt="Amigos logo"/>
             </Link>
           </Grid>
           {isLoggedIn() &&
-          <Grid item className={styles.valami}>
+          <Grid item className={styles.valami} xs={2}>
 
             <Typography className={styles.headerFont} variant="h5"
                         color='textSecondary'>Szia {getToken().sub}</Typography>
 
           </Grid>
           }
-          <Grid item container direction="row" justify="flex-end" alignItems="center" wrap="nowrap" spacing={2} xs={9}>
+          <Grid item container direction="row" justify="flex-end" alignItems="center" wrap="nowrap" spacing={2} xs={10}>
             {!isLoggedIn() &&
             <>
-              <Grid item className={styles.asd} xs={2}>
+              <Grid item className={styles.asd}>
                 <Link component={RouterLink} to="/login">
                   <Typography className={styles.headerFont} variant="h4"
                               color='textSecondary'>Bejelentkezés</Typography>
                 </Link>
               </Grid>
 
-              <Grid item className={styles.asd} xs={2}>
+              <Grid item className={styles.asd}>
                 <Link component={RouterLink} to="/register">
                   <Typography className={styles.headerFont} variant="h4" color='textSecondary'>Regisztráció</Typography>
                 </Link>
@@ -153,7 +153,7 @@ function Header() {
             </>
             }
             {isLoggedIn() &&
-              <Grid item xs={1}>
+              <Grid item>
                 <Tooltip title="Kijelentkezes">
 
                   <IconButton onClick={() => {
